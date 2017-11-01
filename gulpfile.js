@@ -16,6 +16,7 @@ var src = {
   'sassroot': './src/sass',
   'scss': './src/sass/**/*.scss',
   'js': './src/js/**/*.js',
+  'dist': './dist/**/*.*'
 };
 
 //出力先
@@ -100,14 +101,6 @@ gulp.task('all_build', function(){
   gulp.src(src.js, {base: src.root})
       .pipe(gulp.dest(dist.root));
 
-  gulp.src(dist.root, {base: src.root})
-      .pipe(gulp.dest(docs))
-      .pipe(notify({
-        title: 'ビルドが完了しました',
-        subtitle: "gulp",
-        templateOptions: {
-          date: new Date()
-        },
-        message: 'distフォルダを確認してください'
-      }));
+  gulp.src(src.dist, {base: dist.root})
+      .pipe(gulp.dest(docs));
 });
