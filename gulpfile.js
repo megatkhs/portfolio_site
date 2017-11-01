@@ -25,6 +25,8 @@ var dist = {
   'css': './dist/css'
 };
 
+var docs = './docs';
+
 //デフォルトの動作
 gulp.task('default', ['server_start', 'watch_files']);
 
@@ -96,7 +98,10 @@ gulp.task('all_build', function(){
       .pipe(gulp.dest(dist.css));
 
   gulp.src(src.js, {base: src.root})
-      .pipe(gulp.dest(dist.root))
+      .pipe(gulp.dest(dist.root));
+
+  gulp.src(dist.root, {base: src.root})
+      .pipe(gulp.dest(docs))
       .pipe(notify({
         title: 'ビルドが完了しました',
         subtitle: "gulp",
