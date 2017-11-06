@@ -16,6 +16,7 @@ var src = {
   'sassroot': './src/sass',
   'scss': './src/sass/**/*.scss',
   'js': './src/js/**/*.js',
+  'asset': './src/asset/**/*.*',
   'dist': './dist/**/*.*'
 };
 
@@ -99,6 +100,9 @@ gulp.task('all_build', function(){
       .pipe(gulp.dest(dist.css));
 
   gulp.src(src.js, {base: src.root})
+      .pipe(gulp.dest(dist.root));
+
+  gulp.src(src.asset, {base: src.root})
       .pipe(gulp.dest(dist.root));
 
   gulp.src(src.dist, {base: dist.root})
