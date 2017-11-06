@@ -22,12 +22,10 @@ var src = {
 
 //出力先
 var dist = {
-  'root': './dist',
-  'html': './dist',
-  'css': './dist/css'
+  'root': './docs',
+  'html': './docs',
+  'css': './docs/css'
 };
-
-var docs = './docs';
 
 //デフォルトの動作
 gulp.task('default', ['server_start', 'watch_files']);
@@ -58,7 +56,7 @@ gulp.task('change_pug', function(){
         basedir: src.root,
         pretty: true
       }))
-      .pipe(gulp.dest(dist.html))
+      .pipe(gulp.dest(docs.html))
       .pipe(connect.reload());
       console.log('pugをコンパイルしました');
 });
@@ -73,7 +71,7 @@ gulp.task('change_scss', function(){
       .pipe(sass({
         pretty: 'expanded'
       }))
-      .pipe(gulp.dest(dist.css))
+      .pipe(gulp.dest(docs.css))
       .pipe(connect.reload());
 });
 
@@ -81,7 +79,7 @@ gulp.task('change_scss', function(){
 gulp.task('change_js', function(){
   gulp.src(src.js, {base: src.root})
       .pipe(changed(src.js))
-      .pipe(gulp.dest(dist.root))
+      .pipe(gulp.dest(docs.root))
       .pipe(connect.reload());
 });
 
@@ -91,20 +89,15 @@ gulp.task('all_build', function(){
         basedir: src.root,
         pretty: true
       }))
-      .pipe(gulp.dest(dist.html));
+      .pipe(gulp.dest(docs.html));
 
   gulp.src(src.scss, {base: src.sassroot})
       .pipe(sass({
         pretty: 'expanded'
       }))
-      .pipe(gulp.dest(dist.css));
+      .pipe(gulp.dest(docs.css));
 
   gulp.src(src.js, {base: src.root})
-      .pipe(gulp.dest(dist.root));
+      .pipe(gulp.dest(docs.root));
 
-  gulp.src(src.asset, {base: src.root})
-      .pipe(gulp.dest(dist.root));
-
-  gulp.src(src.dist, {base: dist.root})
-      .pipe(gulp.dest(docs));
 });
