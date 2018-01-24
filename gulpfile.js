@@ -1,103 +1,78 @@
-var gulp = require('gulp'),
-    pug = require('gulp-pug'),
-    sass = require('gulp-sass'),
-    changed = require('gulp-changed'),
-    connect = require('gulp-connect'),
-    plumber = require('gulp-plumber'),
-    notify = require('gulp-notify'),
-    browserSync = require('browser-sync'),
-    path = require('path');
+const gulp = require('gulp'),
+      pug = require('gulp-pug'),
+      sass = require('gulp-sass'),
+      changed = require('gulp-changed'),
+      connect = require('gulp-connect'),
+      plumber = require('gulp-plumber'),
+      notify = require('gulp-notify'),
+      browserSync = require('browser-sync'),
+      path = require('path');
 
-// 開発用のディレクトリを指定
-var src = {
+const src = {
   'root': './src',
-  'pug': './src/**/*.pug',
-  'json': './src/*.json',
-  'sassroot': './src/sass',
-  'scss': './src/sass/**/*.scss',
-  'js': './src/js/**/*.js',
-  'asset': './src/asset/**/*.*',
-  'dist': './dist/**/*.*'
+  'pug': './src/pug/**/*.pug',
+  'scss': './src/scss/**/*.scss'
 };
 
-//出力先
-var dist = {
-  'root': './docs',
-  'html': './docs',
-  'css': './docs/css'
-};
-
-//デフォルトの動作
 gulp.task('default', ['server_start', 'watch_files']);
 
-//仮想のWebサーバーを立てます
+// 仮想のWebサーバーを立てます
 gulp.task('server_start', function(){
   connect.server({
-    root: dist.root,  //ルートディレクトリ
-    livereload: true  //ライブリロード
+    root: './',
+    livereload: true
   })
 });
 
-//ファイルの監視を始めます
 gulp.task('watch_files', function(){
   gulp.watch(src.pug, ['change_pug']);
   gulp.watch(src.scss, ['change_scss']);
-  gulp.watch(src.js, ['change_js']);
 });
 
-//*.pugが更新されたときにhtmlを生成します
+// *.pugが更新されたときの動作
 gulp.task('change_pug', function(){
-  gulp.src([src.pug, '!src/**/_*.pug'] , {base: src.root})
+  gulp.src(src.pug)
       .pipe(plumber({
-      errorHandler: notify.onError("Error: <%= error.message %>")
+        errorHandler: notify.onError('Error: <%= error.message %>')
       }))
-      .pipe(changed(src.pug))
       .pipe(pug({
-        basedir: src.root,
         pretty: true
       }))
-      .pipe(gulp.dest(docs.html))
+      .pipe(gulp.dest('./'))
       .pipe(connect.reload());
       console.log('pugをコンパイルしました');
 });
 
-//*.scssが更新されたときにcssを生成します
+// *.scssが更新されたときの動作
 gulp.task('change_scss', function(){
-  gulp.src(src.scss, {base: src.sassroot})
+  gulp.src(src.scss)
       .pipe(plumber({
-      errorHandler: notify.onError("Error: <%= error.message %>")
+        errorHandler: notify.onError('Error: <%= error.message %>')
       }))
-      .pipe(changed(src.scss))
       .pipe(sass({
-        pretty: 'expanded'
+        outputStyle: 'expanded'
       }))
-      .pipe(gulp.dest(docs.css))
-      .pipe(connect.reload());
-});
-
-//*.jsが更新されたときにコピーします
-gulp.task('change_js', function(){
-  gulp.src(src.js, {base: src.root})
-      .pipe(changed(src.js))
-      .pipe(gulp.dest(docs.root))
+      .pipe(gulp.dest('./assets/css'))
       .pipe(connect.reload());
 });
 
 gulp.task('all_build', function(){
-  gulp.src([src.pug, '!src/**/_*.pug'], {base: src.root})
+  gulp.src([src.pug, '!'+src.pug])
+      .pipe(plumber({
+        errorHandler: notify.onError('Error: <%= error.message %>')
+      }))
       .pipe(pug({
         basedir: src.root,
-        pretty: true
+        outputStyle: true
       }))
-      .pipe(gulp.dest(docs.html));
+      .pipe(gulp.dest('./'));
 
-  gulp.src(src.scss, {base: src.sassroot})
-      .pipe(sass({
+  gulp.task(src.scss)
+      .pipe(plumber({
+        errorHandler: notify.onError('Error: <%= error.message %>')
+      }))
+      .pipe(scss({
         pretty: 'expanded'
       }))
-      .pipe(gulp.dest(docs.css));
-
-  gulp.src(src.js, {base: src.root})
-      .pipe(gulp.dest(docs.root));
-
+      .pipe(gulp.dest('./assets/css'));
 });
