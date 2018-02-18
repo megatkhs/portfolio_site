@@ -3,25 +3,34 @@ html(lang='ja')
   head
     meta(charset='utf-8')
     meta(name='viewport',content='width=device-width,initial-scale=1')
-    title TKHS Collection
+    title TKHS Portfolio
     meta(name='discription',content='megatkhsこと髙橋稜のポートフォリオサイトです。')
     link(rel='stylesheet',href='./assets/css/style.css')
-    <script src="https://use.typekit.net/orp0vem.js"></script>
+    script(src='https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js')
+    script(src='./assets/js/dataset.js')
+    script(src="https://use.typekit.net/orp0vem.js")
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
 
   //- ボディ
-  body(data-state='begin')
-    .container
-      .bg_image
-        img(src='./assets/img/bg_forest.jpg',alt='')
+  body
+    .bg_image
+      img(src='./assets/img/bg_forest.jpg',alt='')
+    #container
       header
-        .header_inner
-          h1
-            div#name
-              img(src='./assets/img/char_T.svg', alt="T")
-              img(src='./assets/img/char_K.svg', alt="K")
-              img(src='./assets/img/char_H.svg', alt="H")
-              img(src='./assets/img/char_S.svg', alt="S")
-            div#word Collection
-      main
+        h1
+          div#name
+            img(src='./assets/img/char_T.svg', alt="T")
+            img(src='./assets/img/char_K.svg', alt="K")
+            img(src='./assets/img/char_H.svg', alt="H")
+            img(src='./assets/img/char_S.svg', alt="S")
+          div#word Portfolio
+      nav
+      section(v-for='(item, index) in items', :class="getClass(item.type,item.size,item.class)", :index="index")
+        div.titleWrapper
+          h2(v-html='item.name')
+          p {{ item.part }} 担当
+        caption.imgArea
+          img(:src="getImg(item.img)")
+      footer
+        p &copy; megatkhs
     script(src='./assets/js/script.js')

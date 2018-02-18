@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Yu Gothic";
   src: local("Yu Gothic Medium");
@@ -40,14 +41,10 @@ html, body {
 }
 
 body {
-  background-color: #020a01;
+  background-color: #eee;
 }
 
-.container {
-  margin: 0 auto;
-}
-
-.container .bg_image {
+.bg_image {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -59,27 +56,32 @@ body {
   filter: blur(10px);
 }
 
-.container header {
-  width: 300px;
-  height: 300px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+#container {
+  padding: 20px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  grid-column-gap: 20px;
+  grid-auto-rows: 300px;
+  grid-row-gap: 20px;
+  justify-content: center;
+  /* グリッド全体を中央に寄せる設定 */
+  grid-auto-flow: dense;
+  /* 空白を埋めるすごい奴 */
+  margin: 0 auto;
+}
+
+#container > * {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#container header {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
   background-color: #fafafa;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.container header .header_inner {
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.container header .header_inner h1 {
+#container header h1 {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -89,7 +91,7 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.container header .header_inner h1 #name {
+#container header h1 #name {
   height: 67px;
   position: relative;
   line-height: 48px;
@@ -98,29 +100,153 @@ body {
   box-sizing: border-box;
 }
 
-.container header .header_inner h1 #name img {
+#container header h1 #name img {
   width: 40px;
   height: 48px;
   position: absolute;
   transform: translateX(-50%);
 }
 
-.container header .header_inner h1 #name img:nth-of-type(1) {
+#container header h1 #name img:nth-of-type(1) {
   left: 14%;
 }
 
-.container header .header_inner h1 #name img:nth-of-type(2) {
+#container header h1 #name img:nth-of-type(2) {
   left: 38%;
 }
 
-.container header .header_inner h1 #name img:nth-of-type(3) {
+#container header h1 #name img:nth-of-type(3) {
   left: 62%;
 }
 
-.container header .header_inner h1 #name img:nth-of-type(4) {
+#container header h1 #name img:nth-of-type(4) {
   left: 86%;
 }
 
-.container header .header_inner h1 #word {
+#container header h1 #word {
   line-height: 28px;
+}
+
+#container nav {
+  grid-column: 1;
+  grid-row: 2;
+  background-color: #29abe2;
+}
+
+#container section {
+  grid-row: span 1;
+  grid-column: span 1;
+  background-color: #fafafa;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+#container section .titleWrapper {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  text-align: right;
+  z-index: 1;
+}
+
+#container section .titleWrapper h2 {
+  font-size: 26px;
+  line-height: 30px;
+}
+
+#container section .titleWrapper p {
+  padding-right: 5px;
+  font-size: 20px;
+}
+
+#container section img {
+  width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  transition: 200ms;
+}
+
+#container section.site {
+  background-color: #f7931e;
+  color: #fafafa;
+  text-shadow: 0 0 10px #a56318;
+}
+
+#container section.digital {
+  background-color: #011b25;
+  color: #82dcff;
+  text-shadow: 0 0 10px #01151d;
+}
+
+#container section.analog {
+  background-color: #f37eab;
+  color: #fafafa;
+  text-shadow: 0 0 10px #e25f91;
+}
+
+#container section.other {
+  background-color: #2dd3b7;
+  color: #fafafa;
+  text-shadow: 0 0 10px #1bbba0;
+}
+
+#container section.large {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+#container section.large img {
+  width: 500px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#container section.middle {
+  grid-row: span 1;
+  grid-column: span 2;
+}
+
+#container section.middle img {
+  width: 280px;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+}
+
+#container section.small .titleWrapper h2 {
+  font-size: 22px;
+  line-height: 30px;
+}
+
+#container section.small .titleWrapper p {
+  font-size: 16px;
+  padding-right: 2px;
+}
+
+#container section.small img {
+  width: 280px;
+  top: 45%;
+  left: 50%;
+}
+
+#container section.small:hover {
+  transform: scale(0.9);
+}
+
+#container section:hover {
+  transform: scale(0.95);
+  transition: 400ms;
+}
+
+#container footer {
+  background-color: #111111;
+  line-height: 300px;
+  text-align: center;
+  font-family: 'Yu Gothic';
+  color: #fafafa;
 }

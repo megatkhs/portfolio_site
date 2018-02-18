@@ -3,23 +3,33 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>TKHS Collection</title>
+    <title>TKHS Portfolio</title>
     <meta name="discription" content="megatkhsこと髙橋稜のポートフォリオサイトです。">
-    <link rel="stylesheet" href="./assets/css/style.css"><script src="https://use.typekit.net/orp0vem.js"></script>
-<script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="./assets/js/dataset.js"></script>
+    <script src="https://use.typekit.net/orp0vem.js"></script><script>try{Typekit.load({ async: true });}catch(e){}</script>
   </head>
-  <body data-state="begin">
-    <div class="container">
-      <div class="bg_image"><img src="./assets/img/bg_forest.jpg" alt=""></div>
+  <body>
+    <div class="bg_image"><img src="./assets/img/bg_forest.jpg" alt=""></div>
+    <div id="container">
       <header>
-        <div class="header_inner">
-          <h1>
-            <div id="name"><img src="./assets/img/char_T.svg" alt="T"><img src="./assets/img/char_K.svg" alt="K"><img src="./assets/img/char_H.svg" alt="H"><img src="./assets/img/char_S.svg" alt="S"></div>
-            <div id="word">Collection</div>
-          </h1>
-        </div>
+        <h1>
+          <div id="name"><img src="./assets/img/char_T.svg" alt="T"><img src="./assets/img/char_K.svg" alt="K"><img src="./assets/img/char_H.svg" alt="H"><img src="./assets/img/char_S.svg" alt="S"></div>
+          <div id="word">Portfolio</div>
+        </h1>
       </header>
-      <main></main>
+      <nav></nav>
+      <section v-for="(item, index) in items" :class="getClass(item.type,item.size,item.class)" :index="index">
+        <div class="titleWrapper">
+          <h2 v-html="item.name"></h2>
+          <p>{{ item.part }} 担当</p>
+        </div>
+        <caption class="imgArea"><img :src="getImg(item.img)"></caption>
+      </section>
+      <footer>
+        <p>&copy; megatkhs</p>
+      </footer>
     </div>
     <script src="./assets/js/script.js"></script>
   </body>

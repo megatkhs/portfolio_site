@@ -1,5 +1,19 @@
 @charset "UTF-8";
 
+$grid_nav_bg: #29abe2;
+$grid_default_bg: #fafafa;
+$grid_site_bg: #f7931e;
+$grid_site_shadow: #a56318;
+$grid_digital_bg: #011b25;
+$grid_digital_shadow: #01151d;
+$grid_digital_font: #82dcff;
+$grid_analog_bg: #f37eab;
+$grid_analog_shadow: #e25f91;
+$grid_other_bg: #2dd3b7;
+$grid_other_shadow: #1bbba0;
+$footer_bg: #111111;
+$font_color: #fafafa;
+
 @font-face {
   font-family: "Yu Gothic";
   src: local("Yu Gothic Medium");
@@ -38,83 +52,195 @@ html, body {
 }
 
 body {
-  background-color: #020a01;
+  background-color: #eee;
 }
 
-.container {
+.bg_image {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 100%;
+  width: auto;
+  z-index: -1;
+  transform: translate(-50%, -50%) scale(1.2);
+  transition: filter 400ms ease-out, transform 2s ease-out;
+  filter: blur(10px);
+}
+
+#container {
+  padding: 20px 20px;
+  display: grid;
+  // grid-template-columns: 300px 300px 300px;
+  grid-template-columns: repeat(auto-fit, 300px);
+  grid-column-gap: 20px;
+  grid-auto-rows: 300px;
+  grid-row-gap: 20px;
+  justify-content: center; /* グリッド全体を中央に寄せる設定 */
+  grid-auto-flow: dense; /* 空白を埋めるすごい奴 */
   margin: 0 auto;
 
-  .bg_image {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    height: 100%;
-    width: auto;
-    z-index: -1;
-    transform: translate(-50%, -50%) scale(1.2);
-    transition: filter 400ms ease-out, transform 2s ease-out;
-    filter: blur(10px);
+  > * {
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
   }
 
   header {
-    width: 300px;
-    height: 300px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
+    grid-column: 1;
+    grid-row: 1;
+    position: relative;
     background-color: #fafafa;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-    
-    .header_inner {
+
+    h1 {
       position: absolute;
-      width: 200%;
-      height: 200%;
       top: 50%;
       left: 50%;
+      width: 180px;
+      margin: 0 auto;
+      text-align: center;
       transform: translate(-50%, -50%);
 
-      h1 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 180px;
-        margin: 0 auto;
-        text-align: center;
-        transform: translate(-50%, -50%);
+      #name {
+        height: 67px;
+        position: relative;
+        line-height: 48px;
+        margin-bottom: 10px;
+        border-bottom: solid 4px #000;
+        box-sizing: border-box;
+        img {
+          width: 40px;
+          height: 48px;
+          position: absolute;
+          transform: translateX(-50%);
 
-        #name {
-          height: 67px;
-          position: relative;
-          line-height: 48px;
-          margin-bottom: 10px;
-          border-bottom: solid 4px #000;
-          box-sizing: border-box;
-          img {
-            width: 40px;
-            height: 48px;
-            position: absolute;
-            transform: translateX(-50%);
-
-            &:nth-of-type(1) {
-              left: 14%;
-            }
-            &:nth-of-type(2) {
-              left: 38%;
-            }
-            &:nth-of-type(3) {
-              left: 62%;
-            }
-            &:nth-of-type(4) {
-              left: 86%;
-            }
+          &:nth-of-type(1) {
+            left: 14%;
+          }
+          &:nth-of-type(2) {
+            left: 38%;
+          }
+          &:nth-of-type(3) {
+            left: 62%;
+          }
+          &:nth-of-type(4) {
+            left: 86%;
           }
         }
-        #word {
-          line-height: 28px;
-        }
+      }
+      #word {
+        line-height: 28px;
       }
     }
+  }
+  nav {
+    grid-column: 1;
+    grid-row: 2;
+    background-color: $grid_nav_bg;
+  }
+  section {
+    grid-row: span 1; grid-column: span 1;
+    background-color: $grid_default_bg;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 200ms;
+
+    .titleWrapper {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      text-align: right;
+      z-index: 1;
+
+      h2 {
+        font-size: 26px;
+        line-height: 30px;
+      }
+      p {
+        padding-right: 5px;
+        font-size: 20px;
+      }
+    }
+    img {
+      width: 200px;
+      position: absolute;
+      top: 50%;
+      left: 35%;
+      transform: translate(-50%, -50%);
+      transition: 200ms;
+    }
+
+    // 色系
+    &.site {
+      background-color: $grid_site_bg;
+      color: $font_color;
+      text-shadow: 0 0 10px $grid_site_shadow;
+    }
+    &.digital {
+      background-color: $grid_digital_bg;
+      color: $grid_digital_font;
+      text-shadow: 0 0 10px $grid_digital_shadow;
+    }
+    &.analog {
+      background-color: $grid_analog_bg;
+      color: $font_color;
+      text-shadow: 0 0 10px $grid_analog_shadow;
+    }
+    &.other {
+      background-color: $grid_other_bg;
+      color: $font_color;
+      text-shadow: 0 0 10px $grid_other_shadow;
+    }
+
+    // 大きさ系
+    &.large {
+      grid-row: span 2; grid-column: span 2;
+      img {
+        width: 500px;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    &.middle {
+      grid-row: span 1; grid-column: span 2;
+      img {
+        width: 280px;
+        top: 50%;
+        left: 25%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    &.small {
+      
+      .titleWrapper {  
+        h2 {
+          font-size: 22px;
+          line-height: 30px;
+        }
+        p {
+          font-size: 16px;
+          padding-right: 2px;
+        }
+      }
+      img {
+        width: 280px;
+        top: 45%;
+        left: 50%;
+      }
+      &:hover {
+        transform: scale(0.9);
+      }
+    }
+
+    &:hover {
+      transform: scale(0.95);
+      transition: 400ms;
+    }
+  }
+  footer {
+    background-color: $footer_bg;
+    line-height: 300px;
+    text-align: center;
+    font-family: 'Yu Gothic';
+    color: $font_color;
   }
 }

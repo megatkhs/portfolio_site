@@ -1,3 +1,12 @@
-'use strict';
+const data = dataset;
 
-setTimeout(() => document.getElementsByClassName('cover')[0].classList.remove('on'), 200)
+console.log(data)
+
+const app = new Vue({
+  el: '#container',
+  data: data,
+  methods: {
+    getClass: (t,s,c) => [t, s == undefined ? 'small' : s, c],
+    getImg: (i) => i != undefined ? './assets/img/' + i : false
+  }
+})
